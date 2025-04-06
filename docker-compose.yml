@@ -1,0 +1,37 @@
+services:
+  vote:
+    container_name: vote
+    image: vote
+    build:
+      context: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - FIRESTORE_EMULATOR_HOST=db:8080
+      - ENVIRONMENT=dev
+      - PORT=8000
+      - GCLOUD_PROJECT=vote
+    ports:
+      - "9080:8000"
+    volumes:
+      - ./cc_cloud_run:/app/cc_cloud_run:Z
+      - ./static:/app/static:Z
+      - ./template:/app/templates:Z
+  db:
+    image: firestore
+    build:
+      context: firestore
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - firestore:/app/.cache/firestore/emulators
+
+volumes:
+  firestore:

@@ -1,0 +1,5 @@
+.venv
+firestore/.cache
+
+.idea
+.vscode

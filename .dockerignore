@@ -1,0 +1,6 @@
+.venv
+.idea
+.vscode
+Dockerfile
+docker-compose.yml
+firestore
