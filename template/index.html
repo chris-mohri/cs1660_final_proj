@@ -2,80 +2,200 @@
 <html lang=en xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>TABS v SPACES</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first-->
-    <script src="https://www.gstatic.com/firebasejs/7.18/firebase-app.js"></script>
-    <!-- Add Firebase Auth service-->
-    <script src="https://www.gstatic.com/firebasejs/8.0/firebase.js"></script>
-    <script src="/static/config.js"></script>
-    <script src="/static/firebase.js"></script>
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>(•‿•)</text></svg>">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Attendance List</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- NEW -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+    integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/static/html2canvas.min.js"></script>
+  <!-- uncomment the below line for local development -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.18/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0/firebase.js"></script>
+  <script src="../static/config.js"></script>
+  <script src="../static/firebase.js"></script>
+  <link rel="stylesheet" href="../static/styles.css">
+
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>(•‿•)</text></svg>">
+
 </head>
 
-<body class="yellow lighten-5">
-    <nav class="teal darken-3">
-        <div class="nav-wrapper container"><a class="brand-logo center" href="#!">TABS v SPACES</a>
-            <ul class="left" id="nav-mobile">
-                <button class="waves-effect waves-light btn" id="signInButton">Sign In with Google</button>
-            </ul>
-        </div>
-    </nav>
-    <div class="section" id="form">
-        <div class="center">
-            <h4>{{leader_message}}</h4>
-        </div>
-        <div class="row center">
-            <div class="col s6 m5 offset-m1">
-                <div class="{% if lead_team == 'TABS' %}card-panel teal lighten-4{% else %}card-panel{% endif %}">
-                    <i class="material-icons large">》</i>
-                    <h3>{{tabs_count}} votes</h3>
-                    <button class="btn" id="voteTabs">Vote for TABS</button>
-                </div>
-            </div>
-            <div class="col s6 m5">
-                <div class="{% if lead_team == 'SPACES' %}card-panel teal lighten-4{% else %}card-panel{% endif %}">
-                    <i class="material-icons large">⎵</i>
-                    <h3>{{spaces_count}} votes</h3>
-                    <button class="btn" id="voteSpaces">Vote for SPACES</button>
-                </div>
-            </div>
-        </div>
-        <h4 class="header center">Recent Votes</h4>
-        <ul class="container collection center">
-            {% for vote in recent_votes %}
-            <li class="collection-item avatar">
-                <i class="material-icons circle teal lighten-1">{% if vote.team == "TABS" %}》{% elif vote.team ==
-                    "SPACES"
-                    %}⎵{%else%}❓{% endif %}</i>
-                <span class="title">A vote for </span><b>'{{vote.team}}'</b>
-                <p>was cast at {{vote.time_cast}}</p>
-            </li>
-            {% endfor %}
-        </ul>
+<body>
+  <div>
+    <br><br>
+    <div class="action_bar2">
+      <p>&darr;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&darr;&darr; Student? Just Sign In Here
+        &darr;&darr;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&darr;</p>
     </div>
-    <script>
-        async function voteReloader(params) {
-            await vote(params);
-            window.location.reload();
+    <div id="sign_in_container">
+      <button id="signInButton">Sign In with Google</button>
+    </div>
+
+
+    <div class="action_bar">
+      <p>&darr;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&darr;&darr; Teachers Go Here
+        &darr;&darr;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&darr;</p>
+    </div>
+
+
+    <div id="teacher_section">
+      <div id="header-div">
+        <div id="top-header-div">
+          <div id="title-div">
+            <h1 class="paint-order" id="title">ATTENDANCE TRACKER</h1>
+          </div>
+        </div>
+      </div>
+      <p id="daily_code" style="font-size:1px"></p>
+
+      <p class="title_style paint-order">QR CODE</p>
+      <div id="qr_container">
+        <div id="qr_container_inner">
+          <div id="qr_button">
+            <div id="qr">Generate Code Here</div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
+      <button id="screenshot" style="height:40px;  background-color: lightyellow;">Screenshot</button>
+      <button id="update_attendance_button" style="height:40px;  background-color: lightyellow;">Update Attendance List
+      </button>
+      <button id="reset_attendance" style="height:40px; background-color: lightyellow;">Reset
+        Attendance</button>
+
+
+      <h4 class="header center">Present</h4>
+
+      <div id="present_section">
+      </div>
+      <br><br><br>
+
+      <p>==========================================</p>
+
+      <img id="screenshot_img" src="" style="width:50%;">
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      document.getElementById("signInButton").addEventListener("click", function () {
+        toggle();
+      });
+
+      // =======================================================================
+      //NEW
+      document.getElementById("screenshot").addEventListener("click", function () {
+        screenshot();
+      });
+
+      document.getElementById("qr_button").addEventListener("click", function () {
+        generateQRCode();
+      });
+
+      document.getElementById("reset_attendance").addEventListener("click", function () {
+        clearAttendance();
+      });
+
+      document.getElementById("update_attendance_button").addEventListener("click", function () {
+        updateAttendanceList();
+      });
+
+      //generate unique qr codes for the same link
+      function generateQRCode() {
+        var key = "";
+        for (let i = 0; i < 6; i++) {
+          key += getRandomInt(9).toString();
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            <!-- add Event Listener "click" to the vote -->
-            document.getElementById("voteTabs").addEventListener("click", function () {
-                voteReloader("TABS");
-            });
-            document.getElementById("voteSpaces").addEventListener("click", function () {
-                voteReloader("SPACES");
-            });
-            document.getElementById("signInButton").addEventListener("click", function () {
-                toggle();
-            });
-        })
-    </script>
+        var QRElement = document.getElementById('qr');
+        QRElement.innerHTML = "";
+
+        new QRCode(QRElement, {
+          //https://tabs-vs-spaces-945227819116.us-central1.run.app/ <--the key gets saved in target url. wikipedia drops the key
+          text: window.location.href+'?key=' + key,
+          width: 250,
+          height: 250,
+          colorDark: 'purple',
+          colorLight: 'white',
+        });
+
+        updateDailyCode(key);
+
+      }
+
+      // updates the daily code
+      function updateDailyCode(code) {
+        document.getElementById("daily_code").innerHTML = code
+      }
+
+      /**
+       * gets random int from 0 to <max>
+       * @param max
+       * @returns int
+       */
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+      }
+
+      // takes a picture of the screen, then sends to backend
+      function screenshot() {
+        html2canvas(document.body, {
+          useCORS: true
+        }).then(function (canvas) {
+          // png file
+          var screen_img = canvas.toDataURL('image/png');
+          document.getElementById('screenshot_img').src = screen_img;
+          sendToBackend(screen_img);
+        });
+      }
+
+      // sends image to python backend
+      function sendToBackend(img) {
+        fetch('/upload-image', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ image: img })
+        }).then(response => {
+          // then(response)
+          if (response.ok) {
+            console.log('Image sent to server!');
+          } else {
+            console.error('image failed to send to server :(');
+          }
+        });
+      }
+
+      function clearAttendance() {
+        fetch('/reset_attendance', {
+          method: 'POST',
+          headers: {
+          },
+        }).then(response => {
+          if (response.ok) {
+            console.log('Attendance List Cleared');
+          } else {
+            console.error('Failed to clear attendance list');
+          }
+        });
+      }
+
+      // =====================================================================
+
+    })
+  </script>
 </body>
 
 </html>

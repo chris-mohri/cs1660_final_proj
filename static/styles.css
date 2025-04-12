@@ -1,0 +1,329 @@
+div {
+    /*border: 1px solid rgb(230, 173, 225);*/
+    /* outline: 1px dashed red; */
+}
+
+body {
+    background-color: lightblue;
+}
+
+
+#sign_in_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #e5e5f7;
+    padding-bottom: 25px;
+    padding-top: 25px;
+}
+
+#qr_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: red; */
+}
+
+#qr_container_inner {
+    padding: 5px;
+    border: 4px solid rgb(12, 54, 12);
+}
+
+.action_bar {
+    text-align: center;
+    opacity: 1;
+    background-color: white;
+    background: repeating-linear-gradient(45deg, #979bec, #7e84f3 5px, #e5e5f7 5px, #e5e5f7 25px);
+}
+
+.action_bar>p {
+    /* background-color:white; */
+    font-weight: 1000;
+    font-size: 1.5em;
+    color: rgb(204, 63, 63);
+    text-shadow:
+        -1px -1px 0 white,
+        1px -1px 0 white,
+        -1px 1px 0 white,
+        1px 1px 0 white;
+}
+
+.action_bar2 {
+
+    text-align: center;
+    opacity: 1;
+    background-color: white;
+    background: repeating-linear-gradient(45deg, #ecc497, #f3ce7e 5px, #e5e5f7 5px, #e5e5f7 25px);
+}
+
+.action_bar2>p {
+    /* background-color:white; */
+    font-weight: 1000;
+    font-size: 1.5em;
+    color: rgb(204, 63, 63);
+    text-shadow:
+        -1px -1px 0 white,
+        1px -1px 0 white,
+        -1px 1px 0 white,
+        1px 1px 0 white;
+
+    margin: 0px;
+}
+
+#qr {
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background: radial-gradient(circle, transparent 20%, #e5e5f7 20%, #f7eee5 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent) 25px 25px, linear-gradient(#444cf7 2px, transparent 2px) 0 -1px, linear-gradient(90deg, #444cf7 2px, #e5e5f7 2px) -1px 0;
+    background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+    width: 250px;
+    height: 250px;
+    border: 4px solid rgb(89, 139, 89);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2em;
+    font-weight: 800;
+    text-shadow: 1px 1px 1px #000000;
+    color: white;
+}
+
+#qr:hover {
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background: radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent) 25px 25px, linear-gradient(#f744d3 2px, transparent 2px) 0 -1px, linear-gradient(90deg, #f744eb 2px, #e5e5f7 2px) -1px 0;
+    background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+    width: 250px;
+    height: 250px;
+    border: 4px solid rgb(89, 139, 89);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2em;
+    font-weight: 800;
+    text-shadow: 1px 1px 1px #000000;
+    color: white;
+}
+
+#header-div {
+    /*CENTERS INFO IN DIVS */
+    align-items: center;
+    padding: 15px 20px;
+    background-color: rgb(232, 232, 232);
+    border-bottom: 2px solid black;
+}
+
+#top-header-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#title-div {
+    float: left;
+}
+
+#title {
+    text-shadow: #007bff;
+    text-align: center;
+    margin: 0px;
+
+}
+
+.paint-order {
+    paint-order: stroke fill;
+
+    /* https://caniuse.com/mdn-css_properties_paint-order */
+    /* default is paint-order: fill stroke */
+    /* mdn: https://developer.mozilla.org/en-US/docs/Web/CSS/paint-order */
+}
+
+.title_style {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-transform: uppercase;
+    font-size: 1em;
+    font-weight: 900;
+    letter-spacing: -.01ch;
+    line-height: 0.9;
+    color: white;
+    -webkit-text-stroke: 5px black;
+    text-shadow: 4px 4px black;
+
+}
+
+
+h1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-transform: uppercase;
+    font-size: calc(1rem + min(40px, 15vw));
+    font-weight: 900;
+    letter-spacing: -.01ch;
+    line-height: 0.9;
+    color: white;
+    -webkit-text-stroke: 5px black;
+    text-shadow: 8px 8px black;
+}
+
+.sign-in-button {
+    align-items: center;
+    appearance: none;
+    background-clip: padding-box;
+    background-color: initial;
+    background-image: none;
+    border-style: none;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-size: 16px;
+    font-weight: 800;
+    justify-content: center;
+    line-height: 24px;
+    margin: 0;
+    min-height: 64px;
+    outline: none;
+    overflow: visible;
+    padding: 19px 26px;
+    pointer-events: auto;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    width: auto;
+    word-break: keep-all;
+    z-index: 0;
+}
+
+@media (min-width: 768px) {
+    .sign-in-button {
+        padding: 19px 32px;
+    }
+}
+
+.sign-in-button:before,
+.sign-in-button:after {
+    border-radius: 80px;
+}
+
+.sign-in-button:before {
+    background-image: linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -2;
+}
+
+.sign-in-button:after {
+    background-color: initial;
+    background-image: linear-gradient(#541a0f 0, #0c0d0d 100%);
+    bottom: 4px;
+    content: "";
+    display: block;
+    left: 4px;
+    overflow: hidden;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    transition: all 100ms ease-out;
+    z-index: -1;
+}
+
+.sign-in-button:hover:not(:disabled):before {
+    background: linear-gradient(92.83deg, rgb(255, 116, 38) 0%, rgb(249, 58, 19) 100%);
+}
+
+.sign-in-button:hover:not(:disabled):after {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    transition-timing-function: ease-in;
+    opacity: 0;
+}
+
+.sign-in-button:active:not(:disabled) {
+    color: #ccc;
+}
+
+.sign-in-button:active:not(:disabled):before {
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
+}
+
+.sign-in-button:active:not(:disabled):after {
+    background-image: linear-gradient(#541a0f 0, #0c0d0d 100%);
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+    top: 4px;
+}
+
+.sign-in-button:disabled {
+    cursor: default;
+    opacity: .24;
+}
+
+#qr_title {
+    text-align: center;
+    font-size: 1.5em;
+    margin: 0px;
+}
+
+
+body {
+    min-block-size: 100%;
+    font-family: system-ui, sans-serif;
+
+    display: grid;
+    place-content: center;
+}
+
+#auth-button {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#page-switch-div {
+    text-align: right;
+}
+
+#view-link {
+    margin-left: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #007bff;
+}
+
+#view-link:hover {
+    text-decoration: underline;
+}
+
+#content-header-div {
+    text-align: center;
+}
+
+#present-button-div {
+    padding-top: 50px;
+    text-align: center;
+}
