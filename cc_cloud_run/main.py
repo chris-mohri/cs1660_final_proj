@@ -1,14 +1,22 @@
 import base64
+import io
 from pathlib import Path
 import re
 from fastapi import FastAPI, Form, Request, HTTPException
+from fastapi.responses import StreamingResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from google.cloud import firestore
 from typing import Annotated
+from .database import Base, QRCode, get_engine
+from sqlalchemy.orm import sessionmaker
 import datetime
 
 app = FastAPI()
+engine = get_engine()
+Base.metadata.create_all(bind=engine)
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+
 
 # mount static files
 app.mount("/static", StaticFiles(directory="/app/static"), name="static")
@@ -71,6 +79,25 @@ async def upload_image(request: Request):
     data = await request.json()
     image_data = data["image"]
 
+    try:
+        image_bytes = base64.b64decode(image_data)
+    except Exception as e:
+        print("error decoding image: ", e)
+        raise HTTPException(status_code=400, detail="Invalid image encoding")
+
+    db = SessionLocal()
+    try:
+        qr_entry = QRCode(qrcode=image_bytes)
+        print("commiting to db")
+        db.add(qr_entry)
+        
+        db.commit()
+        db.refresh(qr_entry)
+        return {"id": qr_entry.id, "date": qr_entry.date.isoformat()}
+    finally:
+        db.close()
+
+
 @app.post("/add_student")
 # only adds if student email is not already present in collection
 async def addStudent(name: Annotated[str, Form()], email: Annotated[str, Form()], key: Annotated[str, Form()]):
@@ -100,3 +127,34 @@ async def updateHTML():
 
     return attendance_data
 
+@app.get("/past-attendance")
+async def past_attendance(request: Request):
+    db = SessionLocal()
+    try:
+        qrcodes = db.query(QRCode).all()
+        qrcode_data = []
+        for qrcode in qrcodes:
+            base64_qr = base64.b64encode(qrcode.qrcode).decode('utf-8')
+            qrcode_data.append({
+                "id": qrcode.id,
+                "date": qrcode.date,
+                "image": f"data:image/png;base64,{base64_qr}"
+            })
+        return templates.TemplateResponse("past-attendance.html", {"request": request, "qrcodes" :qrcode_data})
+    finally:
+        db.close()
+
+@app.get("/download-qr/{qr_id}")
+async def download_qr(qr_id: int):
+    db = SessionLocal()
+    try: 
+        qr = db.query(QRCode).filter(QRCode.id == qr_id).first()
+        if not qr:
+            raise HTTPException(status_code=404, detail="QR code not found")
+        return StreamingResponse(
+            io.BytesIO(qr.qrcode),
+            media_type="image/png",
+            headers={"Content-Disposition": f"attachment; filename=qr_{qr_id}.png"}
+        )
+    finally:
+        db.close()

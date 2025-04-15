@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Past Attendance</title>
+    <link rel="stylesheet" href="../static/styles.css" />
+  </head>
+  <body>
+    <h1>Past Attendance</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>QR Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for qr in qrcodes %}
+        <tr>
+          <td>{{qr.id}}</td>
+          <td>{{qr.date.strftime('%Y-%m-%d %H:%M:%S')}}</td>
+          <td>
+            <a href="/download-qr/{{qr.id}}" download="qr_{{qr.id}}.png"
+              >Download Image</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

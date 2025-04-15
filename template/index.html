@@ -1,201 +1,227 @@
-<!doctype html>
-<html lang=en xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Attendance List</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <!-- NEW -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+      integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/static/html2canvas.min.js"></script>
+    <!-- uncomment the below line for local development -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <title>Attendance List</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <!-- NEW -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
-    integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="/static/html2canvas.min.js"></script>
-  <!-- uncomment the below line for local development -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.18/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0/firebase.js"></script>
+    <script src="../static/config.js"></script>
+    <script src="../static/firebase.js"></script>
+    <link rel="stylesheet" href="../static/styles.css" />
 
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>(•‿•)</text></svg>"
+    />
+  </head>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.18/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.0/firebase.js"></script>
-  <script src="../static/config.js"></script>
-  <script src="../static/firebase.js"></script>
-  <link rel="stylesheet" href="../static/styles.css">
+  <body>
+    <div>
+      <br /><br />
+      <div class="action_bar2">
+        <p>
+          &darr;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&darr;&darr; Student? Just Sign In
+          Here &darr;&darr;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&darr;
+        </p>
+      </div>
+      <div id="sign_in_container">
+        <button id="signInButton">Sign In with Google</button>
+      </div>
 
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>(•‿•)</text></svg>">
+      <div class="action_bar">
+        <p>
+          &darr;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&darr;&darr; Teachers Go Here
+          &darr;&darr;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&darr;
+        </p>
+      </div>
 
-</head>
-
-<body>
-  <div>
-    <br><br>
-    <div class="action_bar2">
-      <p>&darr;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&darr;&darr; Student? Just Sign In Here
-        &darr;&darr;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&darr;</p>
-    </div>
-    <div id="sign_in_container">
-      <button id="signInButton">Sign In with Google</button>
-    </div>
-
-
-    <div class="action_bar">
-      <p>&darr;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&darr;&darr; Teachers Go Here
-        &darr;&darr;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&darr;</p>
-    </div>
-
-
-    <div id="teacher_section">
-      <div id="header-div">
-        <div id="top-header-div">
-          <div id="title-div">
-            <h1 class="paint-order" id="title">ATTENDANCE TRACKER</h1>
+      <div id="teacher_section">
+        <div id="header-div">
+          <div id="top-header-div">
+            <div id="title-div">
+              <h1 class="paint-order" id="title">ATTENDANCE TRACKER</h1>
+            </div>
           </div>
         </div>
-      </div>
-      <p id="daily_code" style="font-size:1px"></p>
+        <p id="daily_code" style="font-size: 1px"></p>
 
-      <p class="title_style paint-order">QR CODE</p>
-      <div id="qr_container">
-        <div id="qr_container_inner">
-          <div id="qr_button">
-            <div id="qr">Generate Code Here</div>
+        <p class="title_style paint-order">QR CODE</p>
+        <div id="qr_container">
+          <div id="qr_container_inner">
+            <div id="qr_button">
+              <div id="qr">Generate Code Here</div>
+            </div>
           </div>
         </div>
+
+        <br />
+
+        <button
+          id="screenshot"
+          style="height: 40px; background-color: lightyellow"
+        >
+          Screenshot
+        </button>
+        <button
+          id="update_attendance_button"
+          style="height: 40px; background-color: lightyellow"
+        >
+          Update Attendance List
+        </button>
+        <button
+          id="reset_attendance"
+          style="height: 40px; background-color: lightyellow"
+        >
+          Reset Attendance
+        </button>
+
+        <h4 class="header center">Present</h4>
+
+        <div id="present_section"></div>
+        <br /><br /><br />
+
+        <p>==========================================</p>
+
+        <img id="screenshot_img" src="" style="width: 50%" />
       </div>
-
-      <br>
-
-      <button id="screenshot" style="height:40px;  background-color: lightyellow;">Screenshot</button>
-      <button id="update_attendance_button" style="height:40px;  background-color: lightyellow;">Update Attendance List
-      </button>
-      <button id="reset_attendance" style="height:40px; background-color: lightyellow;">Reset
-        Attendance</button>
-
-
-      <h4 class="header center">Present</h4>
-
-      <div id="present_section">
-      </div>
-      <br><br><br>
-
-      <p>==========================================</p>
-
-      <img id="screenshot_img" src="" style="width:50%;">
-
     </div>
-  </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("signInButton")
+          .addEventListener("click", function () {
+            toggle();
+          });
 
-      document.getElementById("signInButton").addEventListener("click", function () {
-        toggle();
-      });
+        // =======================================================================
+        //NEW
+        document
+          .getElementById("screenshot")
+          .addEventListener("click", function () {
+            screenshot();
+          });
 
-      // =======================================================================
-      //NEW
-      document.getElementById("screenshot").addEventListener("click", function () {
-        screenshot();
-      });
+        document
+          .getElementById("qr_button")
+          .addEventListener("click", function () {
+            generateQRCode();
+          });
 
-      document.getElementById("qr_button").addEventListener("click", function () {
-        generateQRCode();
-      });
+        document
+          .getElementById("reset_attendance")
+          .addEventListener("click", function () {
+            clearAttendance();
+          });
 
-      document.getElementById("reset_attendance").addEventListener("click", function () {
-        clearAttendance();
-      });
+        document
+          .getElementById("update_attendance_button")
+          .addEventListener("click", function () {
+            updateAttendanceList();
+          });
 
-      document.getElementById("update_attendance_button").addEventListener("click", function () {
-        updateAttendanceList();
-      });
+        //generate unique qr codes for the same link
+        function generateQRCode() {
+          var key = "";
+          for (let i = 0; i < 6; i++) {
+            key += getRandomInt(9).toString();
+          }
 
-      //generate unique qr codes for the same link
-      function generateQRCode() {
-        var key = "";
-        for (let i = 0; i < 6; i++) {
-          key += getRandomInt(9).toString();
+          var QRElement = document.getElementById("qr");
+          QRElement.innerHTML = "";
+
+          new QRCode(QRElement, {
+            //https://tabs-vs-spaces-945227819116.us-central1.run.app/ <--the key gets saved in target url. wikipedia drops the key
+            text: window.location.href + "?key=" + key,
+            width: 250,
+            height: 250,
+            colorDark: "purple",
+            colorLight: "white",
+          });
+
+          updateDailyCode(key);
         }
 
-        var QRElement = document.getElementById('qr');
-        QRElement.innerHTML = "";
+        // updates the daily code
+        function updateDailyCode(code) {
+          document.getElementById("daily_code").innerHTML = code;
+        }
 
-        new QRCode(QRElement, {
-          //https://tabs-vs-spaces-945227819116.us-central1.run.app/ <--the key gets saved in target url. wikipedia drops the key
-          text: window.location.href+'?key=' + key,
-          width: 250,
-          height: 250,
-          colorDark: 'purple',
-          colorLight: 'white',
-        });
+        /**
+         * gets random int from 0 to <max>
+         * @param max
+         * @returns int
+         */
+        function getRandomInt(max) {
+          return Math.floor(Math.random() * max);
+        }
 
-        updateDailyCode(key);
+        // takes a picture of the screen, then sends to backend
+        function screenshot() {
+          html2canvas(document.body, {
+            useCORS: true,
+          }).then(function (canvas) {
+            // png file
+            var screen_img = canvas.toDataURL("image/png");
+            document.getElementById("screenshot_img").src = screen_img;
+            sendToBackend(screen_img);
+          });
+        }
 
-      }
+        // sends image to python backend
+        function sendToBackend(img) {
+          const base64img = img.replace(/^data:image\/png;base64,/, "");
+          fetch("/upload-image", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ image: base64img }),
+          }).then((response) => {
+            // then(response)
+            if (response.ok) {
+              console.log("Image sent to server!");
+            } else {
+              console.error("image failed to send to server :(");
+            }
+          });
+        }
 
-      // updates the daily code
-      function updateDailyCode(code) {
-        document.getElementById("daily_code").innerHTML = code
-      }
+        function clearAttendance() {
+          fetch("/reset_attendance", {
+            method: "POST",
+            headers: {},
+          }).then((response) => {
+            if (response.ok) {
+              console.log("Attendance List Cleared");
+            } else {
+              console.error("Failed to clear attendance list");
+            }
+          });
+        }
 
-      /**
-       * gets random int from 0 to <max>
-       * @param max
-       * @returns int
-       */
-      function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
-      }
-
-      // takes a picture of the screen, then sends to backend
-      function screenshot() {
-        html2canvas(document.body, {
-          useCORS: true
-        }).then(function (canvas) {
-          // png file
-          var screen_img = canvas.toDataURL('image/png');
-          document.getElementById('screenshot_img').src = screen_img;
-          sendToBackend(screen_img);
-        });
-      }
-
-      // sends image to python backend
-      function sendToBackend(img) {
-        fetch('/upload-image', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ image: img })
-        }).then(response => {
-          // then(response)
-          if (response.ok) {
-            console.log('Image sent to server!');
-          } else {
-            console.error('image failed to send to server :(');
-          }
-        });
-      }
-
-      function clearAttendance() {
-        fetch('/reset_attendance', {
-          method: 'POST',
-          headers: {
-          },
-        }).then(response => {
-          if (response.ok) {
-            console.log('Attendance List Cleared');
-          } else {
-            console.error('Failed to clear attendance list');
-          }
-        });
-      }
-
-      // =====================================================================
-
-    })
-  </script>
-</body>
-
+        // =====================================================================
+      });
+    </script>
+  </body>
 </html>
