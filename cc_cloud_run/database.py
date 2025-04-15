@@ -6,6 +6,8 @@ from google.cloud.sql.connector import Connector, IPTypes
 
 Base = declarative_base()
 
+# Define the QRCode model
+# Documentation to connect cloud run https://cloud.google.com/sql/docs/postgres/connect-run#python
 class QRCode(Base):
     __tablename__ = 'qrcodes'
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -15,15 +17,20 @@ class QRCode(Base):
 
 def get_engine():
     connector = Connector()
-    INSTANCE_CONNECTION_NAME = "cs1660-cjm235:us-central1:qr-codes"
+    INSTANCE_CONNECTION_NAME = "your-project-id:your-region:your-instance-name"
+    # Replace with your actual project ID, region, and instance name
+    USER="your-username"
+    PASSWORD="your-password"
+    DB="your-database"
+
 
     def getconn():
         return connector.connect(
         INSTANCE_CONNECTION_NAME,
         "pg8000",
-        user="postgres",
-        password="cjm235",
-        db="qr-codes",
+        user=USER,
+        password=PASSWORD,
+        db=DB,
         ip_type= IPTypes.PUBLIC,
     )
     
