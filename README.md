@@ -1,6 +1,5 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/WVFNYe4k)
-# Cloud Run App with OAuth2 and Firestore
-
+# QR Code Attendance (Strawhattendance)
+### [YOUR APPLICATION URL HERE!](https://tabs-vs-spaces-945227819116.us-central1.run.app/)
 ---
 
 ## Overview
@@ -33,17 +32,19 @@ https://tabs-vs-spaces-945227819116.us-central1.run.app/
 ```mermaid
 graph TD;
     subgraph "Frontend"
-        UI[Static UI] -->|Authenticates with| Firebase
+        UI[Dynamic UI] -->|Authenticates with| Firebase
+        UI --> Recaptcha["reCAPTCHA"]
     end
 
     subgraph "Backend (FastAPI Server)"
-        FastAPI[FastAPI Server] -->|Serves| UI
+        FastAPI["FastAPI Server"] -->|Serves| UI
         FastAPI -->|Interacts with| Firestore
+        FastAPI -->|Stores/Retrieves Images| SQLServer["SQL Server"]
     end
 
     subgraph "Google Services"
-        Firebase -->|Handles Authentication| GoogleID[Google ID Platform]
-        Firestore[Firestore Database]
+        Firebase -->|Handles Authentication| GoogleID["Google ID Platform"]
+        Firestore["Firestore Database"]
     end
 
     UI -->|Uses Firebase SDK| Firebase
