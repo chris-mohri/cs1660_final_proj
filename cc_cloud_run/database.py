@@ -19,7 +19,7 @@ def get_engine():
     connector = Connector()
     INSTANCE_CONNECTION_NAME = "strawhattendance:us-central1:screenshot-db"
     # Replace with your actual project ID, region, and instance name
-    USER="postgress"
+    USER="postgres"
     PASSWORD=")hY=D|?^S|aqmLPp"
     DB="qr-codes"
 
