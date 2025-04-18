@@ -53,6 +53,16 @@ function signIn() {
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.addScope('https://www.googleapis.com/auth/userinfo.email');
 
+  grecaptcha.enterprise.ready(async () => {
+    const token = await grecaptcha.enterprise.execute('6LeM5BwrAAAAACiRMi7fyG_43Qu6Mp6Xeh3saNkZ', { action: 'LOGIN' });
+
+    if (!token) {
+      console.error("reCAPTCHA failed.");
+      alert("reCAPTCHA failed. Try again.");
+      return;
+    }
+  })
+
   var name = "a";
   var email = "b";
   firebase
@@ -65,6 +75,7 @@ function signIn() {
       email = result.user.email;
 
       addStudent(result.user.displayName, result.user.email);
+      //Note^ should this be name, email instead?
       //=========================================================
 
 
