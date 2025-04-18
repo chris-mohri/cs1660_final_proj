@@ -40,7 +40,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
     </li>
-    <li><a href="##google-cloud-services">Google Cloud Services</a></li>
+    <li><a href="#google-cloud-services">Google Cloud Services</a></li>
     <li><a href="#architecture">Architecture</a></li>
   </ol>
 </details>
