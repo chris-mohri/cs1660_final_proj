@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>TABS v SPACES</title>
+    <link rel="stylesheet" href="../static/css/atten.css">
+    <script src="../static/js/atten-js.js" defer></script>
+
+</head>
+
+<body class="big-body">
+    <div id="header-div">
+        <div id="top-header-div">
+            <div id="title-div">
+                <h1 class="paint-order" id="title">ATTENDANCE <br> TRACKER</h1>
+            </div>
+            <div id="auth-button-div">
+                <button id="auth-button">Sign In(dont need)</button>
+            </div>
+        </div>
+
+        <div id="page-switch-div">
+            <a id="view-link">Go To Teacher View</a>
+        </div>
+    </div>
+
+    <div id="page-content-div">
+        <div id="present-button-div">
+            <button class="sign-in-button" role="button">Become Present</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
