@@ -17,11 +17,11 @@ class QRCode(Base):
 
 def get_engine():
     connector = Connector()
-    INSTANCE_CONNECTION_NAME = "your-project-id:your-region:your-instance-name"
+    INSTANCE_CONNECTION_NAME = "strawhattendance:us-central1:screenshot-db"
     # Replace with your actual project ID, region, and instance name
-    USER="your-username"
-    PASSWORD="your-password"
-    DB="your-database"
+    USER="postgres"
+    PASSWORD=")hY=D|?^S|aqmLPp"
+    DB="qr-codes"
 
 
     def getconn():
