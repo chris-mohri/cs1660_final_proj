@@ -163,7 +163,7 @@ async def download_qr(qr_id: int):
 
 def create_assessment(project_id: str, recaptcha_key: str, token: str, recaptcha_action: str) -> Assessment:
     
-    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient
+    client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient()
 
     event = recaptchaenterprise_v1.Event()
     event.site_key = recaptcha_key
