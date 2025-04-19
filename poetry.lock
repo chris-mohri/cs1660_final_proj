@@ -865,6 +865,27 @@ proto-plus = {version = ">=1.22.2,<2.0.0dev", markers = "python_version >= \"3.1
 protobuf = ">=3.20.2,<4.21.0 || >4.21.0,<4.21.1 || >4.21.1,<4.21.2 || >4.21.2,<4.21.3 || >4.21.3,<4.21.4 || >4.21.4,<4.21.5 || >4.21.5,<6.0.0dev"
 
 [[package]]
+name = "google-cloud-recaptcha-enterprise"
+version = "1.28.1"
+description = "Google Cloud Recaptcha Enterprise API client library"
+optional = false
+python-versions = ">=3.7"
+groups = ["main"]
+files = [
+    {file = "google_cloud_recaptcha_enterprise-1.28.1-py3-none-any.whl", hash = "sha256:a66e26a2b0c26c7a69f02a164d4d25bf7f4ba467f75240d9fffded7eee3a195d"},
+    {file = "google_cloud_recaptcha_enterprise-1.28.1.tar.gz", hash = "sha256:d413c37dc8ea3e4dc1e25796026d8de57bc03942ac9be9c6328ab3aba196457d"},
+]
+
+[package.dependencies]
+google-api-core = {version = ">=1.34.1,<2.0.dev0 || >=2.11.dev0,<3.0.0", extras = ["grpc"]}
+google-auth = ">=2.14.1,<2.24.0 || >2.24.0,<2.25.0 || >2.25.0,<3.0.0"
+proto-plus = [
+    {version = ">=1.25.0,<2.0.0", markers = "python_version >= \"3.13\""},
+    {version = ">=1.22.3,<2.0.0"},
+]
+protobuf = ">=3.20.2,<4.21.0 || >4.21.0,<4.21.1 || >4.21.1,<4.21.2 || >4.21.2,<4.21.3 || >4.21.3,<4.21.4 || >4.21.4,<4.21.5 || >4.21.5,<7.0.0"
+
+[[package]]
 name = "googleapis-common-protos"
 version = "1.67.0"
 description = "Common protobufs used in Google APIs"
@@ -2231,4 +2252,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11"
-content-hash = "9e81564ec858babe1380ff1c63a70d276c57132d92c871f6fcdc5ec9cc1bd9ea"
+content-hash = "fa8ef8f6559f5befd80831ca7d67a3580df49c797eb91fed52b3472ffb9fc408"
