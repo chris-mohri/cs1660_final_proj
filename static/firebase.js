@@ -62,18 +62,6 @@ function signIn() {
       return;
     }
 
-    const response = await fetch('/verify-recaptcha', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({token: token, action: 'LOGIN'})
-    });
-  
-    const result = await response.json();
-    if (result.score < 0.5) {
-      alert("Suspicious activity detected. Try again");
-      return;
-    }
-  
   })
 
   var name = "a";
