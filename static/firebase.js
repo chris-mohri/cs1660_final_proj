@@ -70,6 +70,7 @@ function signIn() {
   
     const result = await response.json();
     if (result.score < 0.5) {
+      console.log("reCaptcha result: ", result)
       alert("Suspicious activity detected. Try again");
       return;
     }
