@@ -10,7 +10,7 @@ jobs:
       contents: 'read'
       id-token: 'write'
     steps:
-      # checkout code
+      # checkout code 
       - uses: actions/checkout@v4
 
       # authenticate with GCP with workload identity provider
