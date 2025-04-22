@@ -19,7 +19,7 @@ jobs:
         name: Authenticate to GCP
         with:
           project_id: "strawhattendance" # update with your project ID
-          workload_identity_provider: "projects/strawhattendance/locations/global/workloadIdentityPools/github/providers/my-repo" # update with your Workload Identity Pool
+          workload_identity_provider: "projects/163952866759/locations/global/workloadIdentityPools/github/providers/my-repo" # update with your Workload Identity Pool
 
       # configure/login with docker
       - name: gcloud Configure Docker
