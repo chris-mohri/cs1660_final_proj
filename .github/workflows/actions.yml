@@ -1,0 +1,42 @@
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      # checkout code
+      - uses: actions/checkout@v4
+
+      # authenticate with GCP with workload identity provider
+      - uses: 'google-github-actions/auth@v2'
+        id: auth
+        name: Authenticate to GCP
+        with:
+          project_id: "strawhattendance" # update with your project ID
+          workload_identity_provider: "projects/774730231317/locations/global/workloadIdentityPools/github/providers/my-repo" # update with your Workload Identity Pool
+
+      # configure/login with docker
+      - name: gcloud Configure Docker
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      # setup docker buildx
+      - name: Setup docker buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
+
+      # build and push the image
+      - name: Build and Push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: us-central1-docker.pkg.dev/strawhattendance/artifact-registry-repo/fastapi-server:v1
+          
