@@ -19,7 +19,7 @@ jobs:
         name: Authenticate to GCP
         with:
           project_id: "strawhattendance" # update with your project ID
-          workload_identity_provider: "projects/774730231317/locations/global/workloadIdentityPools/github/providers/my-repo" # update with your Workload Identity Pool
+          workload_identity_provider: "projects/strawhattendance/locations/global/workloadIdentityPools/github/providers/my-repo" # update with your Workload Identity Pool
 
       # configure/login with docker
       - name: gcloud Configure Docker
@@ -38,5 +38,5 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: us-central1-docker.pkg.dev/strawhattendance/artifact-registry-repo/fastapi-server:v1
+          tags: us-central1-docker.pkg.dev/strawhattendance/attendance/app:v1
           
