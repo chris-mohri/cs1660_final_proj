@@ -50,8 +50,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 Strawhattendance is a QR code-based attendance system. It utilizes modern cloud and backend technologies to provide real-time authentication, reliable data storage, and a responsive user interface.
 
 Key features:
