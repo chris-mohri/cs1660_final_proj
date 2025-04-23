@@ -60,19 +60,23 @@ Key features:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Usage
 
-
-## Google Cloud Services
-
-* Google Cloud Platform
-* Firebase
-* SQL Server
-* ReCaptcha
-* Artifact Registry
+1. Click “Generate QR” to create a new attendance code.
+2. Students scan the QR using their phones and log in through their google account.
+3. Attendance logs will appear under the QR code dashboard.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Google Cloud Services
 
+* Google Cloud Run - Deploys container
+* Firebase - Stores present student information
+* SQL Server - Handles screenshots
+* ReCaptcha - Monitors site traffic
+* Artifact Registry - Container storage
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Architecture
 
