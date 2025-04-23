@@ -40,6 +40,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
     </li>
+    <li><a href="#usage">Usage</a></li>
     <li><a href="#google-cloud-services">Google Cloud Services</a></li>
     <li><a href="#architecture">Architecture</a></li>
   </ol>
@@ -65,6 +66,8 @@ Key features:
 1. Click “Generate QR” to create a new attendance code.
 2. Students scan the QR using their phones and log in through their google account.
 3. Attendance logs will appear under the QR code dashboard.
+4. Click screenshot to automatically save the attendance.
+5. Visit Past Attendance to download previous attendance lists
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
