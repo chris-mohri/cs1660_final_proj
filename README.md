@@ -99,9 +99,11 @@ graph TD;
     subgraph "Google Services"
         Firebase -->|Handles Authentication| GoogleID["Google ID Platform"]
         Firestore["Firestore Database"]
+        RecaptchaAPI["reCAPTCHA Verification API"]
     end
 
     UI -->|Uses Firebase SDK| Firebase
+    Recaptcha -->|Sends token to| RecaptchaAPI
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
